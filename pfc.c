@@ -18,7 +18,7 @@ char* get_blue(char* input)
         fprintf(stderr, "Document not parsed correctly\n");
         return NULL;
     }
-    
+
     cur = xmlDocGetRootElement(doc);
 
     if (!cur)

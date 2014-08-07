@@ -6,6 +6,7 @@ int main()
     char* test = "<coloredtext>yyy<red>xxx</red>iiiii<blue>nothing<insideblue>abc</insideblue>zyx<alsoinside>hello</alsoinside>_yo</blue>aaa<yellow>nnn</yellow>ppp</coloredtext>";
 
     printf("Hello, this is a test of printf color.\n");
+
     printf("Input: %s\n", test);
 
     char* result = get_blue(test);
@@ -17,5 +18,6 @@ int main()
     }
 
     printf("Successfully retrieved text: %s\n", result);
-    return 0;    
+
+    return 0;
 }
