@@ -1,1 +1,1 @@
-char* get_blue(char* input);
+char* colorize(char* input);
