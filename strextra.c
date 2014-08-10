@@ -29,3 +29,10 @@ char* strdup(char* s)
     strcpy(res, s);
     return res;
 }
+
+char* new_itoa(int value)
+{
+    char result[50];
+    sprintf(result, "%d", value);
+    return strdup(result);
+}

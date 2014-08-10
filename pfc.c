@@ -13,15 +13,22 @@ typedef struct {
 
 char* state_to_escape(style_state state)
 {
-    char* result;
-    if (state.color == 1  && state.bold == 1)
-        result = "\033[1;31m";
-    if (state.color == -1 && state.bold == 1)
-        result = "\033[0;1m";
-    if (state.color == 1  && state.bold == 0)
-        result = "\033[0;31m";
-    if (state.color == -1 && state.bold == 0)
-        result = "\033[0m";
+    char result[20];
+    result[0] = 0;
+    strcat(result, "\033[");
+    if (state.bold == 1)
+        strcat(result, "1");
+    else
+        strcat(result, "0");
+
+    strcat(result, ";");
+
+    char* color_number = new_itoa(30 + state.color);
+    strcat(result, color_number);
+    free(color_number);
+
+    strcat(result, "m");
+
     return strdup(result);
 }
 
@@ -31,7 +38,6 @@ char* colorize_node(xmlDocPtr doc, xmlNodePtr cur, style_state state)
 
     while (cur)
     {
-        //printf("Found node: %s", cur->name);
         if (xmlNodeIsText(cur) == 1)
         {
             xmlChar* text = xmlNodeGetContent(cur);
@@ -48,6 +54,12 @@ char* colorize_node(xmlDocPtr doc, xmlNodePtr cur, style_state state)
                 new_state.bold = 1;
             if (xmlStrcmp(cur->name, (const xmlChar *)"red") == 0)
                 new_state.color = 1;
+            if (xmlStrcmp(cur->name, (const xmlChar *)"green") == 0)
+                new_state.color = 2;
+            if (xmlStrcmp(cur->name, (const xmlChar *)"yellow") == 0)
+                new_state.color = 3;
+            if (xmlStrcmp(cur->name, (const xmlChar *)"blue") == 0)
+                new_state.color = 4;
 
             char* escape_str;
             escape_str = state_to_escape(new_state);
@@ -99,13 +111,19 @@ char* colorize(char* input)
         return NULL;
     }
 
-    char* result;
-
     cur = cur->xmlChildrenNode;
     style_state state;
-    state.color = -1;
+    state.color = 7;
     state.bold  = 0;
-    result = colorize_node(doc, cur, state);
+
+    char* result, *nodes;
+
+    result = state_to_escape(state);
+    nodes = colorize_node(doc, cur, state);
+    appendstr(&result, nodes);
+    free(nodes);
+
+    appendstr(&result, "\033[0m");
 
     xmlFreeDoc(doc);
     return result;

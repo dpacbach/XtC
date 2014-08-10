@@ -4,7 +4,7 @@
 
 int main()
 {
-    char* test = "<coloredtext>Here <red><b>is</b></red> <b>some</b> <red>text</red> to <b><red>colorize</red></b>...<b>Here is <red>some</red> more</b> text to colorize.</coloredtext>";
+    char* test = "<coloredtext>Here <red><b>is</b></red> <b>some</b> <red>text</red> to <b><green>colorize</green></b>...<b>Here is <blue>some</blue> more</b> text to <yellow><b>co</b><red>lori</red>ze</yellow>.</coloredtext>";
 
     printf("Hello, this is a test of printf color.\n");
 
