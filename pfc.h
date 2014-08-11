@@ -1,6 +1,6 @@
 #ifndef __PFC__
 #define __PFC__
 
-char* colorize(char* input);
+char* pfc_colorize(char* input);
 
 #endif

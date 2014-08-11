@@ -11,7 +11,7 @@ typedef struct {
     int bold;
 } style_state;
 
-char* state_to_escape(style_state state)
+static char* state_to_escape(style_state state)
 {
     char result[20];
     result[0] = 0;
@@ -32,7 +32,33 @@ char* state_to_escape(style_state state)
     return strdup(result);
 }
 
-char* colorize_node(xmlDocPtr doc, xmlNodePtr cur, style_state state)
+static style_state update_state(xmlNodePtr cur, const style_state* state)
+{
+    style_state new_state = *state;
+
+    if (xmlStrcmp(cur->name, (const xmlChar *)"b") == 0)
+        new_state.bold = 1;
+
+    if (xmlStrcmp(cur->name, (const xmlChar *)"black") == 0)
+        new_state.color = 0;
+    else if (xmlStrcmp(cur->name, (const xmlChar *)"red") == 0)
+        new_state.color = 1;
+    else if (xmlStrcmp(cur->name, (const xmlChar *)"green") == 0)
+        new_state.color = 2;
+    else if (xmlStrcmp(cur->name, (const xmlChar *)"yellow") == 0)
+        new_state.color = 3;
+    else if (xmlStrcmp(cur->name, (const xmlChar *)"blue") == 0)
+        new_state.color = 4;
+    else if (xmlStrcmp(cur->name, (const xmlChar *)"magenta") == 0)
+        new_state.color = 5;
+    else if (xmlStrcmp(cur->name, (const xmlChar *)"cyan") == 0)
+        new_state.color = 6;
+    else if (xmlStrcmp(cur->name, (const xmlChar *)"white") == 0)
+        new_state.color = 7;
+    return new_state;
+}
+
+static char* colorize_node(xmlDocPtr doc, xmlNodePtr cur, style_state state)
 {
     char* res = NULL;
 
@@ -49,17 +75,7 @@ char* colorize_node(xmlDocPtr doc, xmlNodePtr cur, style_state state)
             if (cur->children == NULL)
                 printf("ERROR: cur->children == NULL\n");
 
-            style_state new_state = state;
-            if (xmlStrcmp(cur->name, (const xmlChar *)"b") == 0)
-                new_state.bold = 1;
-            if (xmlStrcmp(cur->name, (const xmlChar *)"red") == 0)
-                new_state.color = 1;
-            if (xmlStrcmp(cur->name, (const xmlChar *)"green") == 0)
-                new_state.color = 2;
-            if (xmlStrcmp(cur->name, (const xmlChar *)"yellow") == 0)
-                new_state.color = 3;
-            if (xmlStrcmp(cur->name, (const xmlChar *)"blue") == 0)
-                new_state.color = 4;
+            style_state new_state = update_state(cur, &state);
 
             char* escape_str;
             escape_str = state_to_escape(new_state);
@@ -80,7 +96,7 @@ char* colorize_node(xmlDocPtr doc, xmlNodePtr cur, style_state state)
     return res;
 }
 
-char* colorize(char* input)
+char* pfc_colorize(char* input)
 {
     xmlDocPtr doc;
     xmlNodePtr cur;

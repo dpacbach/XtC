@@ -4,13 +4,11 @@
 
 int main()
 {
-    char* test = "<coloredtext>Here <red><b>is</b></red> <b>some</b> <red>text</red> to <b><green>colorize</green></b>...<b>Here is <blue>some</blue> more</b> text to <yellow><b>co</b><red>lori</red>ze</yellow>.</coloredtext>";
-
-    printf("Hello, this is a test of printf color.\n");
+    char* test = "<coloredtext>Here <red><b>is</b></red> <b>some</b> <red>text</red> to <b><green>colorize</green></b>...<b>Here is <blue>some</blue> more</b> text to <yellow><b>co</b><red>lori</red>ze</yellow>.<cyan>#####</cyan></coloredtext>";
 
     printf("Input: %s\n", test);
 
-    char* result = colorize(test);
+    char* result = pfc_colorize(test);
 
     if (!result)
     {
