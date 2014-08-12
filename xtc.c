@@ -101,7 +101,14 @@ char* xtc_colorize(char* input)
     xmlDocPtr doc;
     xmlNodePtr cur;
 
-    xmlChar* xmlInput = xmlCharStrdup(input);
+    int length = strlen(input);
+    length += 27 + 1; // <coloredtext></coloredtext>\0
+    char* doc_input = malloc(sizeof(char) * length);
+    doc_input[0] = 0;
+    sprintf(doc_input, "<coloredtext>%s</coloredtext>", input);
+
+    xmlChar* xmlInput = xmlCharStrdup(doc_input);
+    free(doc_input);
     doc = xmlParseDoc(xmlInput);
     xmlFree(xmlInput);
 
