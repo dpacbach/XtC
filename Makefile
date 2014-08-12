@@ -1,4 +1,4 @@
-all: pfctest
+all: xtctest
 
 ############################################################
 
@@ -7,26 +7,26 @@ strextra.o: strextra.c strextra.h
 
 ############################################################
 
-pfc.o: pfc.c pfc.h strextra.h
-	gcc -std=c99 -fPIC -c pfc.c -I/usr/include/libxml2
+xtc.o: xtc.c xtc.h strextra.h
+	gcc -std=c99 -fPIC -c xtc.c -I/usr/include/libxml2
 
-pfc.so: pfc.o strextra.o
-	gcc -std=c99 -shared -o pfc.so pfc.o strextra.o
+xtc.so: xtc.o strextra.o
+	gcc -std=c99 -shared -o xtc.so xtc.o strextra.o
 
 ############################################################
 
-pfctest.o: pfctest.c pfc.h
-	gcc -std=c99 -c pfctest.c
+xtctest.o: xtctest.c xtc.h
+	gcc -std=c99 -c xtctest.c
 
-pfctest: pfc.so pfctest.o
-	gcc -std=c99 -o pfctest pfc.so pfctest.o -lxml2
+xtctest: xtc.so xtctest.o
+	gcc -std=c99 -o xtctest xtc.so xtctest.o -lxml2
 
 ############################################################
 
 clean:
 	-rm *.o
 	-rm *.so
-	-rm pfctest
+	-rm xtctest
 
 .PHONY: all
 .PHONY: clean

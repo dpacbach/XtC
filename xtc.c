@@ -3,7 +3,7 @@
 #include <libxml/xmlreader.h>
 #include <libxml/parser.h>
 
-#include "pfc.h"
+#include "xtc.h"
 #include "strextra.h"
 
 typedef struct {
@@ -73,7 +73,7 @@ static char* colorize_node(xmlDocPtr doc, xmlNodePtr cur, style_state state)
         else
         {
             if (cur->children == NULL)
-                printf("ERROR: cur->children == NULL\n");
+                fprintf(stderr, "ERROR: cur->children == NULL\n");
 
             style_state new_state = update_state(cur, &state);
 
@@ -96,7 +96,7 @@ static char* colorize_node(xmlDocPtr doc, xmlNodePtr cur, style_state state)
     return res;
 }
 
-char* pfc_colorize(char* input)
+char* xtc_colorize(char* input)
 {
     xmlDocPtr doc;
     xmlNodePtr cur;

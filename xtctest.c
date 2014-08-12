@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <malloc.h>
-#include "pfc.h"
+#include "xtc.h"
 
 int main()
 {
@@ -8,7 +8,7 @@ int main()
 
     printf("Input: %s\n", test);
 
-    char* result = pfc_colorize(test);
+    char* result = xtc_colorize(test);
 
     if (!result)
     {
