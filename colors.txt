@@ -1,0 +1,4 @@
+Here <red><b>is</b></red> <b>some</b> <red>text</red> to <b><green>colorize</green></b>...<b>Here is <blue>some</blue> more</b> text to <yellow><b>co</b><red>lori</red>ze</yellow>.<cyan>#####</cyan>
+Hello <b><green>there</green></b> in <red>co<blue>l</blue>or</red><yellow>!!!!</yellow>
+
+<yellow><b>GOODBYE<blue>!!!</blue></b></yellow>
