@@ -31,6 +31,10 @@ xtc: xtc_cmd.o
 
 ############################################################
 
+install: xtc libxtc.so
+	cp xtc ~/bin
+	cp libxtc.so ~/lib64
+
 clean:
 	-rm *.o
 	-rm *.so
@@ -39,3 +43,4 @@ clean:
 
 .PHONY: all
 .PHONY: clean
+.PHONY: install
