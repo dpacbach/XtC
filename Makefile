@@ -23,6 +23,7 @@ xtctest: libxtc.so xtctest.o
 
 ############################################################
 
+# This should have a dependency on xtc.h
 xtc_cmd.o: xtc_cmd.c
 	gcc -std=c99 -c xtc_cmd.c
 

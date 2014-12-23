@@ -4,12 +4,10 @@
 
 int main(int argc, char* argv[])
 {
-    //printf("Hello, this is a test of xtc.");
-    //printf("\nAttempting to load xtc library...");
     void* lib_handle = dlopen("libxtc.so", RTLD_LAZY);
     if (!lib_handle)
     {
-        fprintf(stderr, "\nUnable to load library...");
+        fprintf(stderr, "Unable to load library.\n");
         return 1;
     }
 
