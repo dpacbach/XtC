@@ -27,8 +27,9 @@ int main(int argc, char* argv[])
         char* s = fgets(message, 1024, stdin);    
         if (!s)
             break;
-        char* result = (*xtc_colorize)(message);
+        char* result = xtc_colorize(message);
         printf("%s", result);
+        fflush(stdout); // Don't buffer the output lines
         free(result);
     }
 
