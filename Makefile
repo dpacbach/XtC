@@ -1,47 +1,31 @@
-#all: xtctest xtc
-#
-#############################################################
-#
-#strextra.o: strextra.c strextra.h
-	#gcc -std=c99 -fPIC -c strextra.c
-#
-#############################################################
-#
-#xtc.o: xtc.c xtc.h strextra.h
-	#gcc -std=c99 -fPIC -c xtc.c -I/usr/include/libxml2
-#
-#libxtc.so: xtc.o strextra.o
-	#gcc -std=c99 -shared -o libxtc.so xtc.o strextra.o -lxml2
-#
-#############################################################
-#
-#xtctest.o: xtctest.c xtc.h
-	#gcc -std=c99 -c xtctest.c
-#
-#xtctest: libxtc.so xtctest.o
-	#gcc -std=c99 -o xtctest xtctest.o -L. -lxtc
-#
-#############################################################
-#
-## This should have a dependency on xtc.h
-#xtc_cmd.o: xtc_cmd.c
-	#gcc -std=c99 -c xtc_cmd.c
-#
-#xtc: xtc_cmd.o
-	#gcc -std=c99 -o xtc xtc_cmd.o -ldl
-#
-#############################################################
-#
-#install: xtc libxtc.so
-	#cp xtc ~/bin
-	#cp libxtc.so ~/lib64
-#
-#clean:
-	#-rm *.o
-	#-rm *.so
-	#-rm xtctest
-	#-rm xtc
-#
-#.PHONY: all
-#.PHONY: clean
-#.PHONY: install
+.DEFAULT_GOAL := all
+
+include makerules/config.mk
+include makerules/utils.mk
+
+include src/rules.mk
+
+all: $(LIB_NAME) $(CMD_NAME)
+
+test: $(TEST_BINARY)
+	$(TURNOFF_COLORMAKE)
+	LD_LIBRARY_PATH=$(LIB_FOLDER) ./$(TEST_BINARY)
+
+runcmd: $(CMD_NAME)
+	$(TURNOFF_COLORMAKE)
+	LD_LIBRARY_PATH=$(LIB_FOLDER) ./$(CMD_NAME)
+
+install: all
+	$(TURNOFF_COLORMAKE)
+	@echo "Installing to $(INSTALL_PREFIX)"
+	mkdir -p $(INSTALL_PREFIX)/bin
+	mkdir -p $(INSTALL_PREFIX)/lib
+	cp $(LIBRARIES) $(INSTALL_PREFIX)/lib
+	cp $(EXECUTABLES) $(INSTALL_PREFIX)/bin
+	chmod u+x $(EXECUTABLES)
+
+clean:
+	-rm $(OBJS)
+	-rm $(BINARIES)
+
+.PHONY: all test runcmd install clean

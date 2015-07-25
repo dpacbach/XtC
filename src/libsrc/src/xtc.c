@@ -3,7 +3,7 @@
 #include <libxml/xmlreader.h>
 #include <libxml/parser.h>
 
-#include "xtc.h"
+#include "xtc/xtc.h"
 #include "strextra.h"
 
 typedef struct {
