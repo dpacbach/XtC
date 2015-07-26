@@ -1,5 +1,4 @@
-NEW_C_SRCS := src/libsrc/src/strextra.c \
-              src/libsrc/src/xtc.c
+NEW_C_SRCS := $(CWD)/strextra.c $(CWD)/xtc.c
 NEW_DEPS   := $(NEW_C_SRCS:.c=.d)
 
 C_SRCS    := $(C_SRCS) $(NEW_C_SRCS)
@@ -10,8 +9,9 @@ LIBRARIES := $(LIBRARIES) $(LIB_NAME)
 
 -include $(NEW_DEPS)
 
-src/libsrc/src/%.o: src/libsrc/src/%.c
-	$(CC) -I$(LIB_INTERFACE) -Isrc/libsrc/src -I$(LIBXML2_INCLUDE) $(CFLAGS_LIB) $(CFLAGS) -c $< -o $@
+$(CWD)/%.o: HERE := $(CWD)
+$(CWD)/%.o: $(CWD)/%.c
+	$(CC) -I$(LIB_INTERFACE) -I$(HERE) -I$(LIBXML2_INCLUDE) $(CFLAGS_LIB) $(CFLAGS) -c $< -o $@
 
-$(LIB_NAME): src/libsrc/src/xtc.o src/libsrc/src/strextra.o
+$(LIB_NAME): $(CWD)/xtc.o $(CWD)/strextra.o
 	$(LD) $(LDFLAGS_LIB) $(LDFLAGS) $(LIBXML2_LIB) $^ -o $@
