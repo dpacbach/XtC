@@ -5,11 +5,11 @@ include makerules/utils.mk
 
 include src/rules.mk
 
-all: $(LIB_NAME) $(CMD_NAME)
+all: $(LIB_NAME) $(CMD_NAME) $(TEST_NAME)
 
-test: $(TEST_BINARY)
+test: $(TEST_NAME)
 	$(TURNOFF_COLORMAKE)
-	LD_LIBRARY_PATH=$(LIB_FOLDER) ./$(TEST_BINARY)
+	LD_LIBRARY_PATH=$(LIB_FOLDER) ./$(TEST_NAME)
 
 runcmd: $(CMD_NAME)
 	$(TURNOFF_COLORMAKE)
@@ -27,5 +27,6 @@ install: all
 clean:
 	-rm $(OBJS)
 	-rm $(BINARIES)
+	-rm $(DEPS)
 
 .PHONY: all test runcmd install clean

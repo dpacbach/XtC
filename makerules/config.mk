@@ -1,6 +1,6 @@
 CC := gcc
 
-CFLAGS := -std=c99
+CFLAGS := -MMD -MP -std=c99
 CFLAGS_DEBUG   := -g
 CFLAGS_RELEASE := -O2
 CFLAGS_LIB     := -fPIC
