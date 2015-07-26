@@ -1,10 +1,8 @@
-LIB_INTERFACE := src/libsrc/interface
-LIB_NAME      := src/libsrc/src/libxtc.so
-LIB_FOLDER    := $(dir $(LIB_NAME))
-CMD_NAME      := src/exesrc/xtc
-TEST_NAME     := src/testsrc/xtctest
+LIB_NAME      := libxtc.so
+CMD_NAME      := xtc
+TEST_NAME     := xtctest
 
-CWD := src
-$(call enter,exesrc)
+# Must enter in order of dependencies
 $(call enter,libsrc)
+$(call enter,exesrc)
 $(call enter,testsrc)

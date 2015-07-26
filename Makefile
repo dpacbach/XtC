@@ -3,17 +3,18 @@
 include makerules/config.mk
 include makerules/utils.mk
 
-include src/rules.mk
+CWD := .
+$(call enter,src)
 
-all: $(LIB_NAME) $(CMD_NAME) $(TEST_NAME)
+all: $(LIB_PATH) $(CMD_PATH) $(TEST_CMD_PATH)
 
-test: $(TEST_NAME)
+test: $(TEST_CMD_PATH)
 	$(TURNOFF_COLORMAKE)
-	LD_LIBRARY_PATH=$(LIB_FOLDER) ./$(TEST_NAME)
+	LD_LIBRARY_PATH=$(dir $(LIB_PATH)) ./$(TEST_CMD_PATH)
 
-runcmd: $(CMD_NAME)
+runcmd: $(CMD_PATH)
 	$(TURNOFF_COLORMAKE)
-	LD_LIBRARY_PATH=$(LIB_FOLDER) ./$(CMD_NAME)
+	LD_LIBRARY_PATH=$(dir $(LIB_PATH)) ./$(CMD_PATH)
 
 install: all
 	$(TURNOFF_COLORMAKE)
