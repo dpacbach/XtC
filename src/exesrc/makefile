@@ -1,6 +1,6 @@
 ifndef TOPLEVELWD
 include $(dir $(lastword $(MAKEFILE_LIST)))../makefile
-.DEFAULT_GOAL := $(CMD_PATH)
+.DEFAULT_GOAL := $(DEFAULT_GOAL_CMD)
 else
 
 NEW_C_SRCS  := $(wildcard $(CWD)*.c)
@@ -21,5 +21,7 @@ $(CWD)%.o: $(CWD)%.c
 
 $(CWD)$(CMD_NAME): $(NEW_C_SRCS:.c=.o)
 	$(LD) $(LDFLAGS) -ldl $^ -o $@
+
+DEFAULT_GOAL_CMD := $(CWD)$(CMD_NAME)
 
 endif

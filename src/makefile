@@ -1,6 +1,5 @@
 ifndef TOPLEVELWD
 include $(dir $(lastword $(MAKEFILE_LIST)))../Makefile
-.DEFAULT_GOAL := all
 else
 
 LIB_NAME      := libxtc.so
