@@ -5,7 +5,7 @@ define enterimpl
 	$$(CWD_SP) := $$(CWD)
     CWD := $$(CWD)$1/
     #$$(info Entering $$(CWD))
-    include $$(CWD)/rules.mk
+    include $$(CWD)/makefile
     #$$(info Leaving $$(CWD))
 	CWD := $$($$(CWD_SP))
 	CWD_SP := $$(patsubst %_x,%,$$(CWD_SP))

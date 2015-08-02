@@ -1,5 +1,5 @@
 ifndef TOPLEVELWD
-include $(dir $(lastword $(MAKEFILE_LIST)))../rules.mk
+include $(dir $(lastword $(MAKEFILE_LIST)))../makefile
 .DEFAULT_GOAL := $(LIB_PATH)
 else
 
