@@ -1,3 +1,8 @@
+ifndef TOPLEVELWD
+include $(dir $(lastword $(MAKEFILE_LIST)))../Makefile
+.DEFAULT_GOAL := all
+else
+
 LIB_NAME      := libxtc.so
 CMD_NAME      := xtc
 TEST_NAME     := xtctest
@@ -6,3 +11,5 @@ TEST_NAME     := xtctest
 $(call enter,libsrc)
 $(call enter,exesrc)
 $(call enter,testsrc)
+
+endif

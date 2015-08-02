@@ -1,9 +1,11 @@
 .DEFAULT_GOAL := all
 
-include makerules/config.mk
-include makerules/utils.mk
+CWD := $(dir $(lastword $(MAKEFILE_LIST)))
+TOPLEVELWD := $(CWD)
 
-CWD := .
+include $(CWD)makerules/config.mk
+include $(CWD)makerules/utils.mk
+
 $(call enter,src)
 
 all: $(LIB_PATH) $(CMD_PATH) $(TEST_CMD_PATH)
@@ -16,14 +18,16 @@ runcmd: $(CMD_PATH)
 	$(TURNOFF_COLORMAKE)
 	LD_LIBRARY_PATH=$(dir $(LIB_PATH)) ./$(CMD_PATH)
 
-install: all
+install: $(LIB_PATH) $(CMD_PATH)
 	$(TURNOFF_COLORMAKE)
 	@echo "Installing to $(INSTALL_PREFIX)"
 	mkdir -p $(INSTALL_PREFIX)/bin
 	mkdir -p $(INSTALL_PREFIX)/lib
+	mkdir -p $(INSTALL_PREFIX)/include
 	cp $(LIBRARIES) $(INSTALL_PREFIX)/lib
-	cp $(EXECUTABLES) $(INSTALL_PREFIX)/bin
 	chmod u+x $(EXECUTABLES)
+	cp $(EXECUTABLES) $(INSTALL_PREFIX)/bin
+	cp -r $(LIB_INTERFACE)/* $(INSTALL_PREFIX)/include
 
 clean:
 	-rm $(OBJS)
