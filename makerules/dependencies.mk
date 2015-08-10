@@ -1,3 +1,4 @@
+map = $(foreach i,$2,$(call $1,$(i)))
 
 #ALL_MODULES :=
 
@@ -10,9 +11,14 @@
 #MODULE_TEST_DEPS = $(INCLUDE_TEST) $(INCLUDE_LIB_INT)
 #MODULE_LIB_DEPS  = $(INCLUDE_LIB)  $(INCLUDE_LIB_INT)
 
-ARRAY := $(ONE) $(TWO) $(THREE)
+ONE := one_eval
+TWO := two_eval
+THREE := three_eval
 
-ARRAY_I := $(foreach i,$(ARRAY),-I$(i))
+attach_I = -I$1
+
+ARRAY   = $(ONE) $(TWO) $(THREE)
+ARRAY_I = $(call map,attach_I,$(ARRAY))
 
 $(info ARRAY=$(ARRAY))
 $(info ARRAY_I=$(ARRAY_I))
