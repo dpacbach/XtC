@@ -3,6 +3,8 @@ include $(dir $(lastword $(MAKEFILE_LIST)))../makefile
 .DEFAULT_GOAL := $(DEFAULT_GOAL_LIBRARY)
 else
 
+LOCATION_LIB := $(CWD)
+
 NEW_C_SRCS := $(wildcard $(CWD)*.c)
 NEW_DEPS   := $(NEW_C_SRCS:.c=.d)
 
@@ -18,7 +20,7 @@ LIBRARIES := $(LIBRARIES) $(LIB_PATH)
 
 $(CWD)%.o: CWD_L := $(CWD)
 $(CWD)%.o: $(CWD)%.c
-	$(CC) -I$(LIB_INTERFACE) -I$(CWD_L) -I$(LIBXML2_INCLUDE) $(CFLAGS_LIB) $(CFLAGS) -c $< -o $@
+	$(CC) $(INCLUDES_LIB) -I$(CWD_L) -I$(LIBXML2_INCLUDE) $(CFLAGS_LIB) $(CFLAGS) -c $< -o $@
 
 $(CWD)$(LIB_NAME): $(NEW_C_SRCS:.c=.o)
 	$(LD) $(LDFLAGS_LIB) $(LDFLAGS) $(LIBXML2_LIB) $^ -o $@

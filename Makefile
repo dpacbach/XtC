@@ -3,7 +3,9 @@
 CWD := $(dir $(lastword $(MAKEFILE_LIST)))
 TOPLEVELWD := $(CWD)
 
-include $(CWD)makerules/makefile
+CWD := $(CWD)makerules/
+include $(CWD)makefile
+CWD := $(TOPLEVELWD)
 
 $(call enter,src)
 

@@ -3,6 +3,8 @@ include $(dir $(lastword $(MAKEFILE_LIST)))../makefile
 .DEFAULT_GOAL := $(DEFAULT_GOAL_TEST)
 else
 
+LOCATION_TEST := $(CWD)
+
 NEW_C_SRCS  := $(wildcard $(CWD)*.c)
 NEW_DEPS    := $(NEW_C_SRCS:.c=.d)
 
@@ -16,7 +18,7 @@ BINARIES    := $(BINARIES) $(TEST_CMD_PATH)
 -include $(NEW_DEPS)
 
 $(CWD)%.o: $(CWD)%.c
-	$(CC) -I$(LIB_INTERFACE) $(CFLAGS) -c $< -o $@
+	$(CC) $(INCLUDES_TEST) $(CFLAGS) -c $< -o $@
 
 $(CWD)$(TEST_NAME): $(NEW_C_SRCS:.c=.o) $(LIB_PATH)
 	$(LD) $(LDFLAGS) $^ -o $@

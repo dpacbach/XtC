@@ -13,7 +13,13 @@ endef
 
 enter = $(eval $(call enterimpl,$1))
 
+# Apply the given function to each element of the list and
+# form a new list with the results.
+map = $(foreach i,$2,$(call $1,$(i)))
+
 print-%:
 	@echo $*=$(value $*) \($($*)\)
+
+assert = $(if $1,,$(error $2))
 
 .PHONY: print-%

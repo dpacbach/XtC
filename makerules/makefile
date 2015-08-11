@@ -1,2 +1,3 @@
-include $(CWD)makerules/config.mk
-include $(CWD)makerules/utils.mk
+include $(CWD)config.mk
+include $(CWD)utils.mk
+include $(CWD)dependencies.mk

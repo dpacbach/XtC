@@ -3,6 +3,8 @@ include $(dir $(lastword $(MAKEFILE_LIST)))../makefile
 .DEFAULT_GOAL := $(DEFAULT_GOAL_CMD)
 else
 
+LOCATION_CMD := $(CWD)
+
 NEW_C_SRCS  := $(wildcard $(CWD)*.c)
 NEW_DEPS    := $(NEW_C_SRCS:.c=.d)
 
@@ -17,7 +19,7 @@ EXECUTABLES := $(EXECUTABLES) $(CMD_PATH)
 -include $(NEW_DEPS)
 
 $(CWD)%.o: $(CWD)%.c
-	$(CC) -I$(LIB_INTERFACE) $(CFLAGS) -c $< -o $@
+	$(CC) $(INCLUDES_CMD) $(CFLAGS) -c $< -o $@
 
 $(CWD)$(CMD_NAME): $(NEW_C_SRCS:.c=.o)
 	$(LD) $(LDFLAGS) -ldl $^ -o $@

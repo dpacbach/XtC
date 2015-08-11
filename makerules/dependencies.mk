@@ -1,24 +1,21 @@
-map = $(foreach i,$2,$(call $1,$(i)))
+ALL_LOCATIONS := CMD TEST LIB LIB_INT
 
-#ALL_MODULES :=
+#assert_headers = $(call assert,$(LOCATION_$1),"LOCATION_$1 NOT DEFINED")
+#$(call map,assert_headers,$(ALL_LOCATIONS))
 
-#INCLUDE_CMD     = $(MODULE_CMD)
-#INCLUDE_TEST    = $(MODULE_TEST)
-#INCLUDE_LIB     = $(MODULE_LIB)
-#INCLUDE_LIB_INT = $(MODULE_LIB)/interface
+DEPS_CMD     = LIB_INT
+DEPS_TEST    = LIB_INT
+DEPS_LIB     = LIB_INT
+DEPS_LIB_INT =
 
-#MODULE_CMD_DEPS  = $(INCLUDE_CMD)  $(INCLUDE_LIB_INT)
-#MODULE_TEST_DEPS = $(INCLUDE_TEST) $(INCLUDE_LIB_INT)
-#MODULE_LIB_DEPS  = $(INCLUDE_LIB)  $(INCLUDE_LIB_INT)
+include_flag = -I$(LOCATION_$1)
 
-ONE := one_eval
-TWO := two_eval
-THREE := three_eval
+#include_flags = $(eval INCLUDES_$1=$(call map,include_flag,$1 $(DEPS_$1)))
+include_flags = $(call map,include_flag,$1 $(DEPS_$1))
 
-attach_I = -I$1
+#$(call map,include_flags,$(ALL_LOCATIONS))
+INCLUDES_CMD  = $(call include_flags,$(DEPS_CMD))
+INCLUDES_TEST = $(call include_flags,$(DEPS_TEST))
+INCLUDES_LIB  = $(call include_flags,$(DEPS_LIB))
 
-ARRAY   = $(ONE) $(TWO) $(THREE)
-ARRAY_I = $(call map,attach_I,$(ARRAY))
-
-$(info ARRAY=$(ARRAY))
-$(info ARRAY_I=$(ARRAY_I))
+#$(foreach i,$(ALL_LOCATIONS),$(info INCLUDES_$(i)=$(INCLUDES_$(i))))
