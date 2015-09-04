@@ -17,8 +17,10 @@ enter = $(eval $(call enterimpl,$1))
 # form a new list with the results.
 map = $(foreach i,$2,$(call $1,$(i)))
 
+# Single quotes so that bash doesn't try to expand any left-over
+# dollar signs
 print-%:
-	@echo $*=$(value $*) \($($*)\)
+	@echo '$*=$(value $*) ($($*))'
 
 assert = $(if $1,,$(error $2))
 
