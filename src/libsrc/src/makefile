@@ -18,12 +18,13 @@ LIBRARIES := $(LIBRARIES) $(LIB_PATH)
 
 -include $(NEW_DEPS)
 
-$(CWD)%.o: CWD_L := $(CWD)
+#$(CWD)%.o: CWD_L := $(CWD)
 $(CWD)%.o: $(CWD)%.c
-	$(CC) $(INCLUDES_LIB) -I$(CWD_L) -I$(LIBXML2_INCLUDE) $(CFLAGS_LIB) $(CFLAGS) -c $< -o $@
+	$(CC) $(INCLUDES_LIB) -I$(LIBXML2_INCLUDE) $(CFLAGS_LIB) $(CFLAGS) -c $< -o $@
 
 $(CWD)$(LIB_NAME): $(NEW_C_SRCS:.c=.o)
 	$(LD) $(LDFLAGS_LIB) $(LDFLAGS) $(LIBXML2_LIB) $^ -o $@
+	strip $@
 
 DEFAULT_GOAL_LIBRARY := $(CWD)$(LIB_NAME)
 

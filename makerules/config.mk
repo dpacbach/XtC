@@ -1,3 +1,6 @@
+# Disable implicit rules
+.SUFFIXES:
+
 CC := gcc
 
 CFLAGS := -MMD -MP -std=c99

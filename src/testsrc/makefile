@@ -22,6 +22,7 @@ $(CWD)%.o: $(CWD)%.c
 
 $(CWD)$(TEST_NAME): $(NEW_C_SRCS:.c=.o) $(LIB_PATH)
 	$(LD) $(LDFLAGS) $^ -o $@
+	strip $@
 
 DEFAULT_GOAL_TEST := $(CWD)$(TEST_NAME)
 
