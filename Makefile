@@ -3,10 +3,12 @@
 CWD := $(dir $(lastword $(MAKEFILE_LIST)))
 TOPLEVELWD := $(CWD)
 
-CWD := $(CWD)makerules/
-include $(CWD)makefile
-CWD := $(TOPLEVELWD)
+# This is a special file that has the traversal function
+include $(CWD)makerules/enter.mk
 
+# Load all extra makerules
+$(call enter,makerules)
+# Now traverse the source tree
 $(call enter,src)
 
 all: $(LIB_PATH) $(CMD_PATH) $(TEST_CMD_PATH)
