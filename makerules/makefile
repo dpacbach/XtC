@@ -1,1 +1,8 @@
-include $(wildcard $(CWD)*.mk)
+# These need to be in a certain order
+
+include $(CWD)gmsl/gmsl
+
+include $(CWD)config.mk
+
+include $(CWD)utils.mk
+include $(CWD)dependencies.mk
