@@ -4,6 +4,11 @@
 include ../gmsl/gmsl
 include ../utils.mk
 
+# test0
+$(call assertEqual,$(call relPath, \
+    a,                             \
+    a                              \
+),,test0 failed)
 # test1
 $(call assertEqual,$(call relPath, \
     a,                             \

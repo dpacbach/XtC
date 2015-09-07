@@ -39,7 +39,7 @@ unzipSnd = $(call map,snd,$1)
 # Use recursion to drop elements of a list that satisfy a predicate
 # only until an element is found that does not satisfy it.
 dropWhile =                             \
-    $(if $2,                            \
+    $(if $(strip $2),                   \
         $(if                            \
             $(call $1,$(firstword $2)), \
             $(call dropWhile,           \
@@ -74,6 +74,8 @@ stripCommonPrefix = $(call dropWhile,tupleElemsEq,$(call zip,$1,$2))
 # possible and so may return different results depending if the
 # paths you specify actually exist (in which case the results it
 # returns will tend to be more `optimal').
+#
+# Note that spaces in this function are important.
 relPath =                                          \
     $(call merge,,                                 \
         $(patsubst %,../,                          \
@@ -84,15 +86,19 @@ relPath =                                          \
                 )                                  \
             )                                      \
         )                                          \
-    )$(call merge,/,                               \
+    )$(call merge,/,$(strip                        \
         $(call unzipFst,                           \
             $(call stripCommonPrefix,              \
                 $(call split,/,$(abspath $1)),     \
                 $(call split,/,$(abspath $2))      \
             )                                      \
-        )                                          \
-    )
+        )))
 
+# This function will return a relative path from make's PWD to the
+# given path.
+relPWD = $(call relPath,$1,$(PWD))
+# Get the value of CWD relative to make's PWD
+relCWD = $(call relPWD,$(patsubst %/,%,$(CWD)))
 #####################################################################
 # Miscellaneous stuff
 TURNOFF_COLORMAKE := @echo "COLORMAKE_BEGIN_RUN"
