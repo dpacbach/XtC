@@ -28,12 +28,12 @@ $(call assertEqual,$(call relPath, \
 $(call assertEqual,$(call relPath, \
     a,                             \
     ../                            \
-),makerules/a,test5 failed)
+),test/a,test5 failed)
 # test6
 $(call assertEqual,$(call relPath, \
     a,                             \
     ../../                         \
-),xtc/makerules/a,test6 failed)
+),makerules/test/a,test6 failed)
 # test7
 $(call assertEqual,$(call relPath, \
     ../../../../a,                 \
@@ -50,13 +50,13 @@ $(call assertEqual,$(call relPath, \
     ../../                         \
 ),../../a,test9 failed)
 # test10
-$(call assertEqual,$(call relPath, \
-    ../../xtc/src/exesrc/makefile, \
-    ../src/testsrc/hello           \
+$(call assertEqual,$(call relPath,        \
+    ../../makerules/test/exesrc/makefile, \
+    ../test/xyz/hello                     \
 ),../../exesrc/makefile,test10 failed)
 # test11
 $(call assertEqual,$(call relPath, \
-    ../../xtc/b/c/d,               \
+    ../../makerules/b/c/d,         \
     ../b/c                         \
 ),d,test11 failed)
 
