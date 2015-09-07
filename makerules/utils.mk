@@ -97,12 +97,15 @@ relPath =                                          \
 # This function will return a relative path from make's PWD to the
 # given path.
 relPWD = $(call relPath,$1,$(PWD))
-# Get the value of CWD relative to make's PWD
-relCWD = $(patsubst %//,%/,$(if $(_relCWD),$(_relCWD)/,))
+# Get the value of CWD relative to make's PWD. 
+relCWD = $(patsubst %//,%/,$(call trailingSlash,$(_relCWD)))
 _relCWD = $(call relPWD,$(patsubst %/,%,$(CWD)))
 #####################################################################
 # Miscellaneous stuff
 TURNOFF_COLORMAKE := @echo "COLORMAKE_BEGIN_RUN"
+# If the first is non-empty then return it with an extra slash at the
+# end, else return empty.
+trailingSlash = $(if $(strip $1),$(strip $1)/,)
 # This will remove redundant slashes because of the way that make
 # uses spaces to separate list elements.  Note that it will remove
 # slashes from the end as well (except for a single slash which is
