@@ -24,7 +24,6 @@ $(relCWD)%.o: $(relCWD)%.c
 
 $(relCWD)$(LIB_NAME): $(NEW_C_SRCS:.c=.o)
 	$(LD) $(LDFLAGS_LIB) $(LDFLAGS) $(LIBXML2_LIB) $^ -o $@
-	strip $@
 
 DEFAULT_GOAL_LIBRARY := $(relCWD)$(LIB_NAME)
 

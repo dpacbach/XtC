@@ -23,7 +23,6 @@ $(relCWD)%.o: $(relCWD)%.c
 
 $(relCWD)$(CMD_NAME): $(NEW_C_SRCS:.c=.o)
 	$(LD) $(LDFLAGS) -ldl $^ -o $@
-	strip $@
 
 DEFAULT_GOAL_CMD := $(relCWD)$(CMD_NAME)
 
