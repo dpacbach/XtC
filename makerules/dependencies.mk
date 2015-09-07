@@ -8,7 +8,7 @@ DEPS_TEST    := LIB_INT
 DEPS_LIB     := LIB_INT
 DEPS_LIB_INT :=
 
-include_flag = -I$(LOCATION_$1)
+include_flag = -I$(if $(LOCATION_$1),$(LOCATION_$1),.)
 
 #include_flags = $(eval INCLUDES_$1=$(call map,include_flag,$1 $(DEPS_$1)))
 include_flags = $(call map,include_flag,$1 $(DEPS_$1))

@@ -98,10 +98,16 @@ relPath =                                          \
 # given path.
 relPWD = $(call relPath,$1,$(PWD))
 # Get the value of CWD relative to make's PWD
-relCWD = $(call relPWD,$(patsubst %/,%,$(CWD)))
+relCWD = $(patsubst %//,%/,$(if $(_relCWD),$(_relCWD)/,))
+_relCWD = $(call relPWD,$(patsubst %/,%,$(CWD)))
 #####################################################################
 # Miscellaneous stuff
 TURNOFF_COLORMAKE := @echo "COLORMAKE_BEGIN_RUN"
+# This will remove redundant slashes because of the way that make
+# uses spaces to separate list elements.  Note that it will remove
+# slashes from the end as well (except for a single slash which is
+# leaves alone).
+normalizeSlashes = $(if $(call seq,/,$1),/,$(call merge,/,$(call split,/,$1)))
 # Single quotes so that bash doesn't try to expand any left-over
 # dollar signs
 print-%:
