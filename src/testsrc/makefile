@@ -3,12 +3,12 @@ include $(dir $(lastword $(MAKEFILE_LIST)))../makefile
 .DEFAULT_GOAL := $(DEFAULT_GOAL_TEST)
 else
 
-LOCATION_TEST := $(CWD)
+LOCATION_TEST := $(relCWD)
 
-NEW_C_SRCS  := $(wildcard $(CWD)*.c)
+NEW_C_SRCS  := $(wildcard $(relCWD)*.c)
 NEW_DEPS    := $(NEW_C_SRCS:.c=.d)
 
-TEST_CMD_PATH := $(CWD)$(TEST_NAME)
+TEST_CMD_PATH := $(relCWD)$(TEST_NAME)
 
 C_SRCS      := $(C_SRCS) $(NEW_C_SRCS)
 OBJS        := $(OBJS) $(NEW_C_SRCS:.c=.o)
@@ -17,13 +17,13 @@ BINARIES    := $(BINARIES) $(TEST_CMD_PATH)
 
 -include $(NEW_DEPS)
 
-$(CWD)%.o: $(CWD)%.c
+$(relCWD)%.o: $(relCWD)%.c
 	$(CC) $(INCLUDES_TEST) $(CFLAGS) -c $< -o $@
 
-$(CWD)$(TEST_NAME): $(NEW_C_SRCS:.c=.o) $(LIB_PATH)
+$(relCWD)$(TEST_NAME): $(NEW_C_SRCS:.c=.o) $(LIB_PATH)
 	$(LD) $(LDFLAGS) $^ -o $@
 	strip $@
 
-DEFAULT_GOAL_TEST := $(CWD)$(TEST_NAME)
+DEFAULT_GOAL_TEST := $(relCWD)$(TEST_NAME)
 
 endif

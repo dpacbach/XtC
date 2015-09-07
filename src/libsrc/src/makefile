@@ -3,12 +3,12 @@ include $(dir $(lastword $(MAKEFILE_LIST)))../makefile
 .DEFAULT_GOAL := $(DEFAULT_GOAL_LIBRARY)
 else
 
-LOCATION_LIB := $(CWD)
+LOCATION_LIB := $(relCWD)
 
-NEW_C_SRCS := $(wildcard $(CWD)*.c)
+NEW_C_SRCS := $(wildcard $(relCWD)*.c)
 NEW_DEPS   := $(NEW_C_SRCS:.c=.d)
 
-LIB_PATH := $(CWD)$(LIB_NAME)
+LIB_PATH := $(relCWD)$(LIB_NAME)
 
 C_SRCS    := $(C_SRCS) $(NEW_C_SRCS)
 OBJS      := $(OBJS) $(NEW_C_SRCS:.c=.o)
@@ -18,14 +18,14 @@ LIBRARIES := $(LIBRARIES) $(LIB_PATH)
 
 -include $(NEW_DEPS)
 
-#$(CWD)%.o: CWD_L := $(CWD)
-$(CWD)%.o: $(CWD)%.c
+#$(relCWD)%.o: relCWD_L := $(relCWD)
+$(relCWD)%.o: $(relCWD)%.c
 	$(CC) $(INCLUDES_LIB) -I$(LIBXML2_INCLUDE) $(CFLAGS_LIB) $(CFLAGS) -c $< -o $@
 
-$(CWD)$(LIB_NAME): $(NEW_C_SRCS:.c=.o)
+$(relCWD)$(LIB_NAME): $(NEW_C_SRCS:.c=.o)
 	$(LD) $(LDFLAGS_LIB) $(LDFLAGS) $(LIBXML2_LIB) $^ -o $@
 	strip $@
 
-DEFAULT_GOAL_LIBRARY := $(CWD)$(LIB_NAME)
+DEFAULT_GOAL_LIBRARY := $(relCWD)$(LIB_NAME)
 
 endif
