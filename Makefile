@@ -1,3 +1,11 @@
+
+
+
+# TODO: auto dependency generation doesn't seem to work well
+# with non-recursive make when doing successive incremental builds
+# starting from different PWDs... i.e., incremental building
+# doesn't happen properly.
+
 .DEFAULT_GOAL := all
 
 CWD := $(dir $(lastword $(MAKEFILE_LIST)))
