@@ -21,7 +21,7 @@ void appendstr(char** left_ptr, const char* right)
     *left_ptr = res;
 }
 
-char* strdup(char* s)
+char* strdup(const char* s)
 {
     if (s == NULL)
         return NULL;

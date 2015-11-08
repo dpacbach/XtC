@@ -12,7 +12,7 @@
  */
 void appendstr(char** left_ptr, const char* right);
 
-char* strdup(char* s);
+char* strdup(const char* s);
 
 char* new_itoa(int value);
 

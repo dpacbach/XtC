@@ -67,7 +67,7 @@ static char* colorize_node(xmlDocPtr doc, xmlNodePtr cur, style_state state)
         if (xmlNodeIsText(cur) == 1)
         {
             xmlChar* text = xmlNodeGetContent(cur);
-            appendstr(&res, text);
+            appendstr(&res, (const char*)text);
             xmlFree(text);
         }
         else
@@ -82,7 +82,7 @@ static char* colorize_node(xmlDocPtr doc, xmlNodePtr cur, style_state state)
             appendstr(&res, escape_str);
             free(escape_str);
 
-            xmlChar* content = colorize_node(doc, cur->children, new_state);
+            xmlChar* content = (xmlChar*)colorize_node(doc, cur->children, new_state);
             appendstr(&res, (char*)content);
             xmlFree(content);
 
