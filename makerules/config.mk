@@ -9,9 +9,9 @@ CFLAGS_RELEASE := -O2
 CFLAGS_LIB     := -fPIC
 
 ifdef OPT
-CFLAGS += $(CFLAGS_RELEASE)
+    CFLAGS += $(CFLAGS_RELEASE)
 else
-CFLAGS += $(CFLAGS_DEBUG)
+    CFLAGS += $(CFLAGS_DEBUG)
 endif
 
 LD := gcc
@@ -19,13 +19,12 @@ LDFLAGS :=
 LDFLAGS_LIB := -shared
 
 INSTALL_PREFIX := $(HOME)/tmp
+LIBXML2_INCLUDE := /usr/include/libxml2
 
 ifeq ($(OS),OSX)
-LIBXML2_INCLUDE := /usr/include/libxml2
-LIBXML2_LIB := /usr/lib/libxml2.dylib
-CFLAGS += -DOS_OSX
+    LIBXML2_LIB := /usr/lib/libxml2.dylib
+    CFLAGS      += -DOS_OSX
 else
-CFLAGS += -DOS_LINUX
-LIBXML2_INCLUDE := /usr/include/libxml2
-LIBXML2_LIB     := /usr/lib64/libxml2.so
+    LIBXML2_LIB := /usr/lib64/libxml2.so
+    CFLAGS      += -DOS_LINUX
 endif
