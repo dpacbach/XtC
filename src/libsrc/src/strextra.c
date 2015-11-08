@@ -1,5 +1,10 @@
 #include <string.h>
+#ifdef OS_OSX
+#include <stdlib.h>
+#include <stdio.h>
+#else
 #include <malloc.h>
+#endif
 
 #include "strextra.h"
 

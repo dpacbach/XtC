@@ -18,7 +18,14 @@ LD := gcc
 LDFLAGS :=
 LDFLAGS_LIB := -shared
 
+INSTALL_PREFIX := $(HOME)/tmp
+
+ifeq ($(OS),OSX)
+LIBXML2_INCLUDE := /usr/include/libxml2
+LIBXML2_LIB := /usr/lib/libxml2.dylib
+CFLAGS += -DOS_OSX
+else
+CFLAGS += -DOS_LINUX
 LIBXML2_INCLUDE := /usr/include/libxml2
 LIBXML2_LIB     := /usr/lib64/libxml2.so
-
-INSTALL_PREFIX := $(HOME)/tmp
+endif

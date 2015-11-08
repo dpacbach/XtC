@@ -1,5 +1,9 @@
 #include <stdio.h>
+#ifdef OS_OSX
+#include <stdlib.h>
+#else
 #include <malloc.h>
+#endif
 #include <dlfcn.h>
 #include "xtc/xtc.h"
 
