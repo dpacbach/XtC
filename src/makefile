@@ -27,8 +27,10 @@ TEST_NAME     := xtctest
 #
 # The ordering of the list below also comes about because some
 # make files need symbols that are defined in other make modules.
-$(call enter,libsrc)
-$(call enter,exesrc)
-$(call enter,testsrc)
+locations := libsrc  \
+             exesrc  \
+             testsrc
+
+$(call enter_all,$(locations))
 
 endif

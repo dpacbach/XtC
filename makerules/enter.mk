@@ -15,3 +15,5 @@ define enterimpl
 endef
 
 enter = $(eval $(call enterimpl,$1))
+
+enter_all = $(call map,enter,$1)

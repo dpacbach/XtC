@@ -111,13 +111,16 @@ trailingSlash = $(if $(strip $1),$(strip $1)/,)
 # slashes from the end as well (except for a single slash which is
 # leaves alone).
 normalizeSlashes = $(if $(call seq,/,$1),/,$(call merge,/,$(call split,/,$1)))
-# Take a path; if it's empty return the dot, otherwise return unchanged
-dotify = $(if $(call seq,$1,),.,$1)
+# If it's just a dot then make it blank.  In some cases we want the
+# current directory to be represented by a dot but in other cases
+# an empty string.
+noDot = $(if $(call seq,$1,.),,$1)
+# And the reverse:
+yesDot = $(if $(call seq,$1,),.,$1)
 # These are normalized relative paths of the CWD of a target (which
 # is stored as a target-specific variable) and folder containing
 # the current target.
-target_path    = $(call normalizeSlashes,$(dir $@))
-targetCWD_path = $(call normalizeSlashes,$(call dotify,$(targetCWD)))
+target_path = $(call noDot,$(call normalizeSlashes,$(dir $@)))
 
 #####################################################################
 # String functions
