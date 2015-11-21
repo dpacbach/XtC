@@ -17,11 +17,15 @@ BINARIES    := $(BINARIES) $(TEST_CMD_PATH)
 
 -include $(NEW_DEPS)
 
+$(relCWD)%.o: targetCWD := $(relCWD)
 $(relCWD)%.o: $(relCWD)%.c
+	$(call assert_target_location)
 	$(print_compile)
 	$(at)$(CC) $(INCLUDES_TEST) $(CFLAGS) -c $< -o $@
 
+$(relCWD)$(TEST_NAME): targetCWD := $(relCWD)
 $(relCWD)$(TEST_NAME): $(NEW_C_SRCS:.c=.o) $(LIB_PATH)
+	$(call assert_target_location)
 	$(print_link)
 	$(at)$(LD) $(LDFLAGS) $^ -o $@
 

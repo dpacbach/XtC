@@ -18,11 +18,15 @@ EXECUTABLES := $(EXECUTABLES) $(CMD_PATH)
 
 -include $(NEW_DEPS)
 
+$(relCWD)%.o: targetCWD := $(relCWD)
 $(relCWD)%.o: $(relCWD)%.c
+	$(call assert_target_location)
 	$(print_compile)
 	$(at)$(CC) $(INCLUDES_CMD) $(CFLAGS) -c $< -o $@
 
+$(relCWD)$(CMD_NAME): targetCWD := $(relCWD)
 $(relCWD)$(CMD_NAME): $(NEW_C_SRCS:.c=.o)
+	$(call assert_target_location)
 	$(print_link)
 	$(at)$(LD) $(LDFLAGS) -ldl $^ -o $@
 

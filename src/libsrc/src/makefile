@@ -18,11 +18,15 @@ LIBRARIES := $(LIBRARIES) $(LIB_PATH)
 
 -include $(NEW_DEPS)
 
+$(relCWD)%.o: targetCWD := $(relCWD)
 $(relCWD)%.o: $(relCWD)%.c
+	$(call assert_target_location)
 	$(print_compile)
 	$(at)$(CC) $(INCLUDES_LIB) -I$(LIBXML2_INCLUDE) $(CFLAGS_LIB) $(CFLAGS) -c $< -o $@
 
+$(relCWD)$(LIB_NAME): targetCWD := $(relCWD)
 $(relCWD)$(LIB_NAME): $(NEW_C_SRCS:.c=.o)
+	$(call assert_target_location)
 	$(print_link)
 	$(at)$(LD) $(LDFLAGS_LIB) $(LDFLAGS) $(LIBXML2_LIB) $^ -o $@
 

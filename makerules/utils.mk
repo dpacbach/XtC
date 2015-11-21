@@ -55,10 +55,10 @@ dropWhile =                             \
 stripCommonPrefix = $(call dropWhile,tupleElemsEq,$(call zip,$1,$2))
 
 #####################################################################
-# Function: relPath
+# Path functions
 #
-# This function takes two paths as arguments.  These paths can
-# be either absolute or relative or any mix of the two.  Relative
+# relPath: This function takes two paths as arguments.  These paths
+# can be either absolute or relative or any mix of the two.  Relative
 # is always with respect to the system's current working directory.
 #
 # The first can be interpreted either as file or a folder but the
@@ -94,15 +94,15 @@ relPath =                                          \
             )                                      \
         )))
 
+# Definitions:
+#   PWD: the system's current directory as seen by make
+#   CWD: the folder that make is currently processing
 # This function will return a relative path from make's PWD to the
 # given path.
 relPWD = $(call relPath,$1,$(PWD))
 # Get the value of CWD relative to make's PWD. 
 relCWD = $(patsubst %//,%/,$(call trailingSlash,$(_relCWD)))
 _relCWD = $(call relPWD,$(patsubst %/,%,$(CWD)))
-#####################################################################
-# Miscellaneous stuff
-TURNOFF_COLORMAKE := @echo "COLORMAKE_BEGIN_RUN"
 # If the first is non-empty then return it with an extra slash at the
 # end, else return empty.
 trailingSlash = $(if $(strip $1),$(strip $1)/,)
@@ -111,11 +111,30 @@ trailingSlash = $(if $(strip $1),$(strip $1)/,)
 # slashes from the end as well (except for a single slash which is
 # leaves alone).
 normalizeSlashes = $(if $(call seq,/,$1),/,$(call merge,/,$(call split,/,$1)))
+# Take a path; if it's empty return the dot, otherwise return unchanged
+dotify = $(if $(call seq,$1,),.,$1)
+# These are normalized relative paths of the CWD of a target (which
+# is stored as a target-specific variable) and folder containing
+# the current target.
+target_path    = $(call normalizeSlashes,$(dir $@))
+targetCWD_path = $(call normalizeSlashes,$(call dotify,$(targetCWD)))
+
+#####################################################################
+# String functions
+#
+# if strings equal
+ifseq = $(if $(call seq,$1,$2),$3,$4)
+
+#####################################################################
+# Miscellaneous stuff
+TURNOFF_COLORMAKE := @echo "COLORMAKE_BEGIN_RUN"
 # Single quotes so that bash doesn't try to expand any left-over
 # dollar signs
 print-%:
 	@echo '$*=$(value $*) ($($*))'
+# This is a target that is always run but does nothing.  Any target
+# that depends on it will always be rerun.
+always:
+	@:
 
-.PHONY: print-%
-
-assertEqual = $(call assert,$(call seq,$1,$2),$3)
+.PHONY: print-% always
