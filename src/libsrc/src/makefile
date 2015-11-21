@@ -18,12 +18,13 @@ LIBRARIES := $(LIBRARIES) $(LIB_PATH)
 
 -include $(NEW_DEPS)
 
-#$(relCWD)%.o: relCWD_L := $(relCWD)
 $(relCWD)%.o: $(relCWD)%.c
-	$(CC) $(INCLUDES_LIB) -I$(LIBXML2_INCLUDE) $(CFLAGS_LIB) $(CFLAGS) -c $< -o $@
+	$(print_compile)
+	$(at)$(CC) $(INCLUDES_LIB) -I$(LIBXML2_INCLUDE) $(CFLAGS_LIB) $(CFLAGS) -c $< -o $@
 
 $(relCWD)$(LIB_NAME): $(NEW_C_SRCS:.c=.o)
-	$(LD) $(LDFLAGS_LIB) $(LDFLAGS) $(LIBXML2_LIB) $^ -o $@
+	$(print_link)
+	$(at)$(LD) $(LDFLAGS_LIB) $(LDFLAGS) $(LIBXML2_LIB) $^ -o $@
 
 DEFAULT_GOAL_LIBRARY := $(relCWD)$(LIB_NAME)
 

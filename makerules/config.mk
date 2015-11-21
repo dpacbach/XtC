@@ -28,3 +28,7 @@ else
     LIBXML2_LIB := /usr/lib64/libxml2.so
     CFLAGS      += -DOS_LINUX
 endif
+
+# This variable controls whether rule commands are echoed
+# or suppressed infavor of more terse log output.
+SHOW_RULES ?= YES

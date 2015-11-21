@@ -18,10 +18,12 @@ BINARIES    := $(BINARIES) $(TEST_CMD_PATH)
 -include $(NEW_DEPS)
 
 $(relCWD)%.o: $(relCWD)%.c
-	$(CC) $(INCLUDES_TEST) $(CFLAGS) -c $< -o $@
+	$(print_compile)
+	$(at)$(CC) $(INCLUDES_TEST) $(CFLAGS) -c $< -o $@
 
 $(relCWD)$(TEST_NAME): $(NEW_C_SRCS:.c=.o) $(LIB_PATH)
-	$(LD) $(LDFLAGS) $^ -o $@
+	$(print_link)
+	$(at)$(LD) $(LDFLAGS) $^ -o $@
 
 DEFAULT_GOAL_TEST := $(relCWD)$(TEST_NAME)
 

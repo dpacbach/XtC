@@ -19,10 +19,12 @@ EXECUTABLES := $(EXECUTABLES) $(CMD_PATH)
 -include $(NEW_DEPS)
 
 $(relCWD)%.o: $(relCWD)%.c
-	$(CC) $(INCLUDES_CMD) $(CFLAGS) -c $< -o $@
+	$(print_compile)
+	$(at)$(CC) $(INCLUDES_CMD) $(CFLAGS) -c $< -o $@
 
 $(relCWD)$(CMD_NAME): $(NEW_C_SRCS:.c=.o)
-	$(LD) $(LDFLAGS) -ldl $^ -o $@
+	$(print_link)
+	$(at)$(LD) $(LDFLAGS) -ldl $^ -o $@
 
 DEFAULT_GOAL_CMD := $(relCWD)$(CMD_NAME)
 
