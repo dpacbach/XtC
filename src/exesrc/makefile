@@ -23,7 +23,6 @@ $(relCWD)%.o: $(relCWD)%.c
 	$(print_compile)
 	$(at)$(CC) $(INCLUDES_CMD) $(CFLAGS) -c $< -o $@
 
-$(relCWD)$(CMD_NAME): ruleCWD := $(LOCATION_CMD)
 $(relCWD)$(CMD_NAME): $(NEW_C_SRCS:.c=.o)
 	$(call assert_target_location,$(LOCATION_CMD))
 	$(print_link)
