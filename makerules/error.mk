@@ -12,7 +12,7 @@ assertEqual = $(call assert,$(call seq,$1,$2),$3)
 # make files are read in, and make's attempt to build prerequisites
 # of targets which may reside in other folders (it has a global view
 # of all dependencies).
-location_error = $(warning error: $@ [in the "$(target_path)" folder] \
-    cannot be built by a rule in the "$(targetCWD_path)" folder!)@false
+location_error = $(warning error: $@ cannot by built by a rule in \
+    the "$(targetCWD_path)" folder!)@false
 # Check for and report the location_error described above
 assert_target_location = $($(call ifseq,$(targetCWD_path),$(target_path),,location_error))
