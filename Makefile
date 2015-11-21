@@ -33,6 +33,7 @@ install: $(LIB_PATH) $(CMD_PATH)
 	$(at)cp -r $(LIB_INTERFACE)/* $(INSTALL_PREFIX)/include
 
 clean:
-	$(at)-rm -f -v $(OBJS) $(BINARIES) $(DEPS) $(location_file)
+	$(at)-rm -f $(if $(at),-v ,)$(OBJS) $(BINARIES) $(DEPS)
+	@-rm -f $(location_file)
 
 .PHONY: all test runcmd install clean
