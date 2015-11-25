@@ -4,7 +4,7 @@
 CC := gcc
 
 CFLAGS := -MMD -MP -std=c99
-CFLAGS_DEBUG   := -g
+CFLAGS_DEBUG   := -g -ggdb -gstabs
 CFLAGS_RELEASE := -O2
 CFLAGS_LIB     := -fPIC
 

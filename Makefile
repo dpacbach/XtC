@@ -17,7 +17,9 @@ test: $(TEST_CMD_PATH)
 	$(at)$(TURNOFF_COLORMAKE)
 	$(at)LD_LIBRARY_PATH=$(dir $(LIB_PATH)) ./$(TEST_CMD_PATH)
 
-runcmd: $(CMD_PATH)
+# Need to add the LIB_PATH dependency here because CMD_PATH
+# has a dependency on it only at runtime.
+runcmd: $(LIB_PATH) $(CMD_PATH)
 	$(at)$(TURNOFF_COLORMAKE)
 	$(at)LD_LIBRARY_PATH=$(dir $(LIB_PATH)) ./$(CMD_PATH)
 
