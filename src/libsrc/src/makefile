@@ -19,7 +19,7 @@ LIBRARIES := $(LIBRARIES) $(LIB_PATH)
 -include $(NEW_DEPS)
 
 #$(relCWD)%.o: relCWD_L := $(relCWD)
-$(relCWD)%.o: $(relCWD)%.c
+$(relCWD)%.o: $(relCWD)%.c $(ALL_MAKEFILES)
 	$(CC) $(INCLUDES_LIB) -I$(LIBXML2_INCLUDE) $(CFLAGS_LIB) $(CFLAGS) -c $< -o $@
 
 $(relCWD)$(LIB_NAME): $(NEW_C_SRCS:.c=.o)

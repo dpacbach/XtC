@@ -18,7 +18,7 @@ EXECUTABLES := $(EXECUTABLES) $(CMD_PATH)
 
 -include $(NEW_DEPS)
 
-$(relCWD)%.o: $(relCWD)%.c
+$(relCWD)%.o: $(relCWD)%.c $(ALL_MAKEFILES)
 	$(CC) $(INCLUDES_CMD) $(CFLAGS) -c $< -o $@
 
 $(relCWD)$(CMD_NAME): $(NEW_C_SRCS:.c=.o)

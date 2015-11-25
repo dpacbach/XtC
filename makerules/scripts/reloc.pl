@@ -13,7 +13,7 @@
 # The files that it reads I believe need to exist or an error will be
 # thrown.  This should probably be fixed.
 use File::Spec;
-use Cwd 'fast_abs_path';
+use Cwd 'abs_path';
 # Get command line parameters
 my $new_root = shift;
 my $old_root = shift;
@@ -60,7 +60,7 @@ sub fix_path {
     if ($path =~ /^\//) {
         return $path;
     }
-    my $abs = fast_abs_path($old_root . "/" . $path);
+    my $abs = abs_path($old_root . "/" . $path);
     return File::Spec->abs2rel($abs, $new_root);
 }
 

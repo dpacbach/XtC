@@ -17,7 +17,7 @@ BINARIES    := $(BINARIES) $(TEST_CMD_PATH)
 
 -include $(NEW_DEPS)
 
-$(relCWD)%.o: $(relCWD)%.c
+$(relCWD)%.o: $(relCWD)%.c $(ALL_MAKEFILES)
 	$(CC) $(INCLUDES_TEST) $(CFLAGS) -c $< -o $@
 
 $(relCWD)$(TEST_NAME): $(NEW_C_SRCS:.c=.o) $(LIB_PATH)
