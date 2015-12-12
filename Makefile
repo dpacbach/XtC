@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := full
+.DEFAULT_GOAL := all
 
 CWD := $(dir $(lastword $(MAKEFILE_LIST)))
 TOPLEVELWD := $(CWD)
@@ -11,7 +11,7 @@ $(call enter,makerules)
 # Now traverse the source tree
 $(call enter,src)
 
-full: $(LIB_PATH) $(CMD_PATH) $(TEST_CMD_PATH)
+all: $(LIB_PATH) $(CMD_PATH) $(TEST_CMD_PATH)
 
 test: $(TEST_CMD_PATH)
 	$(at)$(TURNOFF_COLORMAKE)
