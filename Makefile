@@ -11,19 +11,19 @@ $(call enter,makerules)
 # Now traverse the source tree
 $(call enter,src)
 
-all: $(LIB_PATH) $(CMD_PATH) $(TEST_CMD_PATH)
+all: $(LIB_PATH) $(EXE_NAME_CMD) $(EXE_NAME_TEST)
 
-test: $(TEST_CMD_PATH)
+test: $(EXE_NAME_TEST)
 	$(at)$(TURNOFF_COLORMAKE)
-	$(at)LD_LIBRARY_PATH=$(dir $(LIB_PATH)) ./$(TEST_CMD_PATH)
+	$(at)LD_LIBRARY_PATH=$(dir $(LIB_PATH)) ./$(EXE_NAME_TEST)
 
-# Need to add the LIB_PATH dependency here because CMD_PATH
+# Need to add the LIB_PATH dependency here because EXE_NAME_CMD
 # has a dependency on it only at runtime.
-runcmd: $(LIB_PATH) $(CMD_PATH)
+runcmd: $(LIB_PATH) $(EXE_NAME_CMD)
 	$(at)$(TURNOFF_COLORMAKE)
-	$(at)LD_LIBRARY_PATH=$(dir $(LIB_PATH)) ./$(CMD_PATH)
+	$(at)LD_LIBRARY_PATH=$(dir $(LIB_PATH)) ./$(EXE_NAME_CMD)
 
-install: $(LIB_PATH) $(CMD_PATH)
+install: $(LIB_PATH) $(EXE_NAME_CMD)
 	$(at)$(TURNOFF_COLORMAKE)
 	$(at)echo "Installing to $(INSTALL_PREFIX)"
 	$(at)mkdir -p $(INSTALL_PREFIX)/bin

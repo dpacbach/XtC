@@ -19,3 +19,26 @@ define calc_include
 endef
 
 $(call map,calc_include,$(ALL_LOCATIONS))
+
+###############################################################################
+# Linking dependencies
+###############################################################################
+LINK_CMD     =
+LINK_TEST    = $(LIB_PATH)
+LINK_LIB     =
+LINK_LIB_INT =
+
+###############################################################################
+# Third-party dependencies
+###############################################################################
+# Include dependencies
+TP_INCLUDES_CMD     :=
+TP_INCLUDES_TEST    :=
+TP_INCLUDES_LIB     :=
+TP_INCLUDES_LIB_INT :=
+
+# Linker dependencies
+TP_LINK_CMD     := -ldl
+TP_LINK_TEST    :=
+TP_LINK_LIB     := -lxml2
+TP_LINK_LIB_INT :=

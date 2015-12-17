@@ -140,4 +140,6 @@ print-%:
 always:
 	@:
 
+set_default_goal = $(eval .DEFAULT_GOAL := $$(DEFAULT_GOAL_$1))
+
 .PHONY: print-% always

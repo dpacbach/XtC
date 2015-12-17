@@ -10,3 +10,5 @@ include $(CWD)error.mk
 include $(CWD)dependencies.mk
 
 include $(CWD)reloc.mk
+
+include $(CWD)rules.mk

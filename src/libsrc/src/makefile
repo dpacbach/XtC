@@ -26,14 +26,10 @@ LIBRARIES := $(LIBRARIES) $(LIB_PATH)
 # to be used to compile files in other folders which
 # is not correct.
 $(NEW_OBJS): $(relCWD)%.o: $(relCWD)%.c
-	$(call assert_target_location,$(LOCATION_LIB))
-	$(print_compile)
-	$(at)$(CC) $(INCLUDES_LIB) -I$(LIBXML2_INCLUDE) $(CFLAGS_LIB) $(CFLAGS) -c $< -o $@
+	$(print_compile) $(CC) $(INCLUDES_LIB) -I$(LIBXML2_INCLUDE) $(CFLAGS_LIB) $(CFLAGS) -c $< -o $@
 
-$(relCWD)$(LIB_NAME): $(NEW_C_SRCS:.c=.o)
-	$(call assert_target_location,$(LOCATION_LIB))
-	$(print_link)
-	$(at)$(LD) $(LDFLAGS_LIB) $(LDFLAGS) $(LIBXML2_LIB) $^ -o $@
+$(relCWD)$(LIB_NAME): $(NEW_OBJS)
+	$(print_link) $(LD) $(LDFLAGS_LIB) $(LDFLAGS) $(LIBXML2_LIB) $^ -o $@
 
 DEFAULT_GOAL_LIBRARY := $(relCWD)$(LIB_NAME)
 
