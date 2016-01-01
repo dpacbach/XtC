@@ -24,7 +24,7 @@ $(call map,calc_include,$(ALL_LOCATIONS))
 # Linking dependencies
 ###############################################################################
 LINK_CMD     =
-LINK_TEST    = $(LIB_PATH)
+LINK_TEST    = $(LIB_BINARY)
 LINK_LIB     =
 LINK_LIB_INT =
 
@@ -34,7 +34,7 @@ LINK_LIB_INT =
 # Include dependencies
 TP_INCLUDES_CMD     :=
 TP_INCLUDES_TEST    :=
-TP_INCLUDES_LIB     :=
+TP_INCLUDES_LIB     := -I$(LIBXML2_INCLUDE)
 TP_INCLUDES_LIB_INT :=
 
 # Linker dependencies

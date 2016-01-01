@@ -1,7 +1,6 @@
 ifndef TOPLEVELWD
     include $(dir $(lastword $(MAKEFILE_LIST)))../makefile
-    $(call set_default_goal,LIB)
+    $(call set_default_goal,LIB_INT)
 else
-    $(call enter,interface)
-    $(call enter,src)
+    $(call set_location,LIB_INT)
 endif

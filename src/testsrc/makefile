@@ -1,7 +1,6 @@
 ifndef TOPLEVELWD
-include $(dir $(lastword $(MAKEFILE_LIST)))../makefile
-$(call set_default_goal,TEST)
+    include $(dir $(lastword $(MAKEFILE_LIST)))../makefile
+    $(call set_default_goal,TEST)
 else
-LOCATION := TEST
-$(call compile_exe,xtctest)
+    $(call make_exe,TEST,xtctest)
 endif
