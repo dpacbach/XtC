@@ -3,22 +3,27 @@ ALL_LOCATIONS := CMD     \
                  LIB     \
                  LIB_INT
 
-#assert_headers = $(call assert,$(LOCATION_$1),"LOCATION_$1 NOT DEFINED")
-#$(call map,assert_headers,$(ALL_LOCATIONS))
+###############################################################################
+# This is where all of the dependencies are specified.
+CMD_deps  := LIB_INT
+TEST_deps := LIB_INT
+LIB_deps  := LIB_INT
 
-DEPS_CMD     := LIB_INT
-DEPS_TEST    := LIB_INT
-DEPS_LIB     := LIB_INT
-DEPS_LIB_INT :=
+###############################################################################
+# Recursive expansion of dependencies
+first_level_deps = $($1_deps)
+expand_deps_1    = $(call map,first_level_deps,$1)
+# This will recursively expand a single location into a full list of all
+# dependencies, including itself (there may be redundencies).
+expand_deps_full = $1 $(call map,expand_deps_full,$(call expand_deps_1,$1))
+# Now just remove redundencies.
+all_deps         = $(call uniq,$(call expand_deps_full,$1))
 
+# Take a location, look up the associated folder, and make the compiler option.
 include_flag  = -I$(if $(LOCATION_$1),$(LOCATION_$1),.)
-include_flags = $(call map,include_flag,$1 $(DEPS_$1))
-
-define calc_include
-    $(eval INCLUDES_$1 = $$(call include_flags,$1))
-endef
-
-$(call map,calc_include,$(ALL_LOCATIONS))
+# Might want to try memoizing the results of this call since currently it has
+# to be recomputed for every file in a library (gmsl has a memoizer).
+include_flags = $(call map,include_flag,$(call all_deps,$1))
 
 ###############################################################################
 # Linking dependencies

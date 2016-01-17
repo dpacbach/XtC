@@ -30,8 +30,7 @@ define _compile_srcs
     # to be used to compile files in other folders which
     # is not correct.
     $$(NEW_OBJS): $(relCWD)%.o: $(relCWD)%.c
-	    $$(print_compile) $$(CC) $$(TP_INCLUDES_$(LOCATION)) $$(INCLUDES_$(LOCATION)) $$($1) $$(CFLAGS) -c $$< -o $$@
-
+	    $$(print_compile) $$(CC) $$(TP_INCLUDES_$(LOCATION)) $(call include_flags,$(LOCATION)) $$($1) $$(CFLAGS) -c $$< -o $$@
 endef
 
 compile_srcs_exe = $(eval $(call _compile_srcs,))

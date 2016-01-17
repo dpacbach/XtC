@@ -11,6 +11,8 @@ $(call enter,makerules)
 # Now traverse the source tree
 $(call enter,src)
 
+include $(CWS)makerules/postsrc.mk
+
 all: $(LIB_BINARY) $(CMD_BINARY) $(TEST_BINARY)
 
 test: $(TEST_BINARY)
