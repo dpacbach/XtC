@@ -1,8 +1,3 @@
-ALL_LOCATIONS := CMD     \
-                 TEST    \
-                 LIB     \
-                 LIB_INT
-
 ###############################################################################
 # This is where all of the dependencies are specified.
 CMD_deps  := LIB_INT
