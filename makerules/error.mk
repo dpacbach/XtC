@@ -1,7 +1,7 @@
 #####################################################################
 # Error handling functions
 
-assertEqual = $(call assert,$(call seq,$1,$2),$3)
+assert_equal = $(call assert,$(call seq,$1,$2),$3)
 
 #####################################################################
 ## No longer used
@@ -18,3 +18,12 @@ assertEqual = $(call assert,$(call seq,$1,$2),$3)
     #the "$(call yesDot,$1)" folder!)@false
 ## Check for and report the location_error described above
 #assert_target_location = $(call $(call ifseq,$(call normalizeSlashes,$1),$(target_path),,location_error),$1)
+
+
+
+# Check to make sure all of the locations have been defined.
+#location_error = $(error "LOCATION_$1 not defined")
+#is_undefined   = $(call seq,$(origin LOCATION_$1),undefined)
+#assert_loc     = $(if $(call is_undefined,$1),$(call location_error,$1),)
+
+#$(call map,assert_loc,$(ALL_LOCATIONS))

@@ -127,6 +127,8 @@ target_path = $(call noDot,$(call normalizeSlashes,$(dir $@)))
 #
 # if strings equal
 ifseq = $(if $(call seq,$1,$2),$3,$4)
+# Keep if matches predicate
+keep_if = $(foreach i,$2,$(if $(call $1,$(i)),$(i),))
 
 #####################################################################
 # Miscellaneous stuff

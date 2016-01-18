@@ -1,4 +1,8 @@
 ################################################################################
+# For clarity, the attempt in this file is to prefer eager evaluation within
+# the "define" blocks when possible, and only use deferred evaluation (i.e.,
+# the $$) when it is actually necessary.
+################################################################################
 # Setting location
 ################################################################################
 define _set_location
@@ -29,8 +33,10 @@ define _compile_srcs
     # would match any object file and cause this rule
     # to be used to compile files in other folders which
     # is not correct.
+    #
+    # Note that the evaluation
     $$(NEW_OBJS): $(relCWD)%.o: $(relCWD)%.c
-	    $$(print_compile) $$(CC) $$(TP_INCLUDES_$(LOCATION)) $(call include_flags,$(LOCATION)) $$($1) $$(CFLAGS) -c $$< -o $$@
+	    $$(print_compile) $$(CC) $(TP_INCLUDES_$(LOCATION)) $(call include_flags,$(LOCATION)) $$($1) $(CFLAGS) -c $$< -o $$@
 endef
 
 compile_srcs_exe = $(eval $(call _compile_srcs,))
@@ -52,8 +58,8 @@ define _link
     BINARIES    := $(BINARIES)    $$($(LOCATION)_BINARY)
     EXECUTABLES := $(EXECUTABLES) $$(if $2,$$($(LOCATION)_BINARY),)
 
-    $(relCWD)$$(OUT_NAME): $$(NEW_OBJS) $(LINK_$(LOCATION))
-	    $$(print_link) $$(LD) $$($2) $$(LDFLAGS) $$(TP_LINK_$(LOCATION)) $$^ -o $$@
+    $(relCWD)$$(OUT_NAME): $$(NEW_OBJS) $(call link_binaries,$(LOCATION))
+	    $$(print_link) $$(LD) $$($2) $(LDFLAGS) $(TP_LINK_$(LOCATION)) $$^ -o $$@
 
 endef
 

@@ -5,7 +5,7 @@
 #include <malloc.h>
 #endif
 #include <dlfcn.h>
-#include "xtc/xtc.h"
+//#include "xtc/xtc.h"
 
 int main(int argc, char* argv[])
 {
