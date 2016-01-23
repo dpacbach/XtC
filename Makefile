@@ -2,12 +2,12 @@ TOPLEVELWD := $(dir $(lastword $(MAKEFILE_LIST)))
 include $(TOPLEVELWD)makerules/toplevel.mk
 
 test: $(TEST_BINARY)
-	$(at)LD_LIBRARY_PATH=$(dir $(LIB_BINARY)) ./$(TEST_BINARY)
+	$(print_run) LD_LIBRARY_PATH=$(dir $(LIB_BINARY)) ./$(TEST_BINARY)
 
 # Need to add the LIB_BINARY dependency here because CMD_BINARY
 # has a dependency on it only at runtime.
 run: $($(MAIN_PROGRAM)_BINARY)
-	$(at)LD_LIBRARY_PATH=$(dir $(LIB_BINARY)) ./$(CMD_BINARY)
+	$(print_run) LD_LIBRARY_PATH=$(dir $(LIB_BINARY)) ./$(CMD_BINARY)
 
 install: $(LIB_BINARY) $(CMD_BINARY)
 	$(at)echo "Installing to $(INSTALL_PREFIX)"

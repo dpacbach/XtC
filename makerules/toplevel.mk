@@ -37,7 +37,7 @@ all: $(BINARIES)
 .DEFAULT_GOAL := all
 
 clean:
-	$(at)-rm -f $(if $(at),-v ,)$(OBJS) $(BINARIES) $(DEPS)
+	$(at)-rm -f $(if $(at),-v ,)$(OBJS) $(BINARIES) $(DEPS) $(colorize_clean)
 	@-rm -f $(location_file)
 
 .PHONY: all clean
