@@ -132,7 +132,7 @@ keep_if = $(foreach i,$2,$(if $(call $1,$(i)),$(i),))
 
 #####################################################################
 # Miscellaneous stuff
-TURNOFF_COLORMAKE := @echo "COLORMAKE_BEGIN_RUN"
+#
 # Single quotes so that bash doesn't try to expand any left-over
 # dollar signs
 print-%:
