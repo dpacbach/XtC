@@ -14,7 +14,7 @@ c_norm    := \033[00m
 removed_red    := 's/removed/'`echo -e "$(c_red)"`'  removed'`echo -e "$(c_norm)"`'/'
 remove_ticks   := 's/`//; s/'\''//'
 
-ifdef SHOW_RULES
+ifdef V
     at :=
     print_rule :=
     colorize_clean :=

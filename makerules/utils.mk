@@ -137,11 +137,9 @@ keep_if = $(foreach i,$2,$(if $(call $1,$(i)),$(i),))
 # dollar signs
 print-%:
 	@echo '$*=$(value $*) ($($*))'
+.PHONY: print-%
 # This is a target that is always run but does nothing.  Any target
 # that depends on it will always be rerun.
-always:
-	@:
+.PHONY: always
 
 set_default_goal = $(eval .DEFAULT_GOAL := $$(DEFAULT_GOAL_$1))
-
-.PHONY: print-% always
