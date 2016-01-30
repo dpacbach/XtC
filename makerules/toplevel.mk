@@ -1,4 +1,5 @@
-CWD := $(TOPLEVELWD)
+makerules_location := $(dir $(lastword $(MAKEFILE_LIST)))
+CWD := $(makerules_location)
 
 ################################################################################
 # This is the `enter' function used to traverse folders.  It sets the
@@ -23,18 +24,18 @@ enter_all = $(call map,enter,$1)
 # Traversal of makerules and source tree.  Entering into the makerules folder
 # will load all of the makerules in that folder except for the ones explicitly
 # loaded here.
-$(call enter,makerules)
+#$(call enter,$(makerules_location))
+include $(CWD)/makefile
 # This is optional but, if present, should be loaded here
--include $(TOPLEVELWD)/project.mk
+#-include $(TOPLEVELWD)/project.mk
 # Now traverse the source tree
-$(call enter,src)
 # These rules must go after the source tree is traversed
-include $(TOPLEVELWD)makerules/postsrc.mk
+#include $(makerules_location)/postsrc.mk
 
 ################################################################################
 # Standard top-level targets
-all: $(BINARIES)
-.DEFAULT_GOAL := all
+#all: $(BINARIES)
+#.DEFAULT_GOAL := all
 
 clean:
 	$(at)-rm -f $(if $(at),-v ,)$(OBJS) $(BINARIES) $(DEPS) $(colorize_clean)
