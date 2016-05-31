@@ -1,6 +1,6 @@
 ###############################################################################
 # General dependencies processing
-first_level_deps = $($1_deps)
+first_level_deps = $($(1).deps)
 expand_deps_1    = $(call map,first_level_deps,$1)
 # This will recursively expand a single location into a full list of all
 # dependencies, including itself (there may be redundencies).
