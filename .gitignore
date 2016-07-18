@@ -31,3 +31,5 @@
 
 # Project specific stuff
 *.location
+makerules
+bin-*

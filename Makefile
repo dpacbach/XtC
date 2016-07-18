@@ -1,5 +1,12 @@
 TOPLEVELWD := $(dir $(lastword $(MAKEFILE_LIST)))
-include $(TOPLEVELWD)makerules/toplevel.mk
+makerules = $(TOPLEVELWD)makerules
+
+include $(makerules)/presrc.mk
+
+CWD := $(TOPLEVELWD)
+$(call enter,src)
+
+include $(makerules)/postsrc.mk
 
 test: $(TEST_BINARY)
 	$(print_run) LD_LIBRARY_PATH=$(dir $(LIB_BINARY)) ./$(TEST_BINARY)
@@ -19,4 +26,4 @@ install: $(LIB_BINARY) $(CMD_BINARY)
 	$(at)cp $(EXECUTABLES) $(INSTALL_PREFIX)/bin
 	$(at)cp -r $(LOCATION_LIB_INT)/* $(INSTALL_PREFIX)/include
 
-.PHONY: test runcmd install
+.PHONY: test run install
