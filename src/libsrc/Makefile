@@ -1,5 +1,5 @@
-ifndef TOPLEVELWD
-    include $(dir $(lastword $(MAKEFILE_LIST)))../makefile
+ifndef root
+    include $(dir $(lastword $(MAKEFILE_LIST)))../Makefile
     $(call set_default_goal,LIB)
 else
     $(call enter,interface)

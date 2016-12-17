@@ -5,11 +5,16 @@
 #include <malloc.h>
 #endif
 #include <dlfcn.h>
-//#include "xtc/xtc.h"
+#include "xtc/xtc.h"
 
-int main(int argc, char* argv[])
+#define STRINGIFY_(x) #x
+#define STRINGIFY(x)  STRINGIFY_(x)
+
+char const* lib_name = "libxtc." STRINGIFY(SO_EXT);
+
+int main()
 {
-    void* lib_handle = dlopen("libxtc.so", RTLD_LAZY);
+    void* lib_handle = dlopen(lib_name, RTLD_LAZY);
     if (!lib_handle)
     {
         fprintf(stderr, "Unable to load library.\n");
@@ -17,7 +22,7 @@ int main(int argc, char* argv[])
     }
 
     char* (*xtc_colorize)(char*);
-    xtc_colorize = dlsym(lib_handle, "xtc_colorize");
+    xtc_colorize = (xtc_colorize_t)dlsym(lib_handle, "xtc_colorize");
     char* error = dlerror();
     if (error)
     {
