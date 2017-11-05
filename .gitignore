@@ -32,4 +32,5 @@
 # Project specific stuff
 *.location
 bin-*
+.lib-*
 /Makefile
