@@ -2,8 +2,6 @@
 # This is where all of the top-level, project-specific
 # information is supplied.
 # ===============================================================
-ENABLE_BIN_FOLDER = 1
-
 CXXFLAGS += -DSO_EXT=$(SO_EXT)
 
 ifeq ($(OS),OSX)
